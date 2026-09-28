@@ -57,7 +57,7 @@ All2MD converts Word, PowerPoint and PDF files to Markdown directly inside Obsid
 ## 手动安装
 
 1. 从 [Releases](../../releases) 下载 `main.js`、`manifest.json`、`styles.css`
-2. 放入你的库目录 `你的库/.obsidian/plugins/all2md/`
+2. 放入你的库目录 `你的库/.obsidian/plugins/alltomd/`
 3. 重启 Obsidian，在 **设置 → 第三方插件** 中启用 All2MD
 
 ## 路线图

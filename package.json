@@ -1,6 +1,6 @@
 {
   "name": "obsidian-all2md",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "将各种格式文件（Word/PPT/PDF）一键转换为 Markdown",
   "main": "main.js",
   "scripts": {
