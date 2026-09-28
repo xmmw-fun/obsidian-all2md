@@ -1,6 +1,6 @@
 {
   "name": "obsidian-alltomd",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "将各种格式文件（Word/PPT/PDF）一键转换为 Markdown",
   "main": "main.js",
   "scripts": {

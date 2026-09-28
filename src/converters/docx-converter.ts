@@ -50,11 +50,12 @@ export class DocxConverter implements Converter {
 		}
 
 		// mammoth 转换：ArrayBuffer → HTML
-		// ⚠️ mammoth 只接受 { buffer: Buffer } 或 { path: string }，不支持 { arrayBuffer }
-		// （2026-08-08 实测：传 { arrayBuffer } 会报 "Could not find file in options"）
-		// 因此必须用 Buffer.from 中转；esbuild 已配 platform: 'node'，Node Buffer 可用
+		// ⚠️ 输入格式取决于打包进来的 unzip 实现：
+		// Node 版（lib/unzip.js）只认 { buffer } / { path }；浏览器版（browser/unzip.js）只认 { arrayBuffer }
+		// （2026-08-08 实测 lib 版传 { arrayBuffer } 报 "Could not find file in options"；
+		//   2026-09-28 上架整改改走 browser 版后，传 { buffer } 同样报该错，改传 { arrayBuffer }）
 		const result = await mammoth.convertToHtml(
-			{ buffer: Buffer.from(fileData) },
+			{ arrayBuffer: fileData },
 			mammothOptions as any
 		);
 
