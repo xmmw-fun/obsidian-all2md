@@ -130,10 +130,18 @@ export default class All2MDPlugin extends Plugin {
 			});
 
 			// 保存附件（图片等）
-			await this.saveAttachments(result, savePath);
+			try {
+				await this.saveAttachments(result, savePath);
+			} catch (err: any) {
+				throw new Error(`保存附件失败：${err?.message || err}`);
+			}
 
 			// 按设置输出
-			await this.outputMarkdown(result, file);
+			try {
+				await this.outputMarkdown(result, file);
+			} catch (err: any) {
+				throw new Error(`输出 Markdown 失败：${err?.message || err}`);
+			}
 			notice.hide();
 			new Notice(`转换完成！格式：${format.toUpperCase()}，耗时 ${result.meta.durationMs}ms`, 5000);
 		} catch (err: any) {
@@ -267,20 +275,24 @@ export default class All2MDPlugin extends Plugin {
 	/**
 	 * 模式 A：插入当前编辑器光标处
 	 *
-	 * 2026-09-28 修复：右键文件菜单时焦点在文件列表，getActiveViewOfType 返回 null
+	 * 2026-09-28 修复①：右键文件菜单时焦点在文件列表，getActiveViewOfType 返回 null
 	 * 误判"未打开笔记"。现增加回退：活动视图不是 MarkdownView 时，
 	 * 取任意一个已打开的 Markdown 视图（通常最后一个 = 最近使用的）。
+	 * 2026-09-28 修复②：笔记处于阅读模式（预览态）时没有编辑器对象，
+	 * 插入会抛 TypeError。候选视图只认 editor 存在的（源码/实时预览模式）。
 	 */
 	private async insertAtCursor(mdContent: string): Promise<void> {
-		let view = this.app.workspace.getActiveViewOfType(MarkdownView);
-		if (!view) {
-			const leaves = this.app.workspace.getLeavesOfType('markdown');
-			const leaf = leaves[leaves.length - 1];
-			if (leaf) view = leaf.view as MarkdownView;
+		const candidates: MarkdownView[] = [];
+		const active = this.app.workspace.getActiveViewOfType(MarkdownView);
+		if (active) candidates.push(active);
+		for (const leaf of this.app.workspace.getLeavesOfType('markdown')) {
+			if (leaf.view instanceof MarkdownView && !candidates.includes(leaf.view)) {
+				candidates.push(leaf.view);
+			}
 		}
+		const view = candidates.find(v => v.editor);
 		if (!view) {
-			// 没有打开的编辑器 → 降级为创建新文件
-			new Notice('请先打开一个笔记文件，或切换输出方式为"生成新文件"', 6000);
+			new Notice('没有可编辑的笔记（阅读模式无法插入光标处）。请打开一个笔记并切换到编辑模式，或改用"生成新文件"输出方式。', 8000);
 			return;
 		}
 
