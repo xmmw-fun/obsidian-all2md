@@ -1,0 +1,11 @@
+# 依赖与构建
+node_modules/
+main.js
+
+# 开发期临时文件（不进仓库）
+_pdf.worker.mjs
+_test-path.js
+_verify-fixes.js
+poc/
+poc-output/
+test-files/

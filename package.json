@@ -1,0 +1,37 @@
+{
+  "name": "obsidian-all2md",
+  "version": "1.0.0",
+  "description": "将各种格式文件（Word/PPT/PDF）一键转换为 Markdown",
+  "main": "main.js",
+  "scripts": {
+    "dev": "node esbuild.config.mjs",
+    "build": "node esbuild.config.mjs production"
+  },
+  "keywords": [
+    "obsidian",
+    "plugin",
+    "markdown",
+    "converter",
+    "docx",
+    "pptx",
+    "pdf"
+  ],
+  "author": "XMMW",
+  "license": "MIT",
+  "type": "commonjs",
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@types/turndown": "^5.0.5",
+    "builtin-modules": "^3.3.0",
+    "esbuild": "^0.19.11",
+    "obsidian": "^1.4.11",
+    "tslib": "^2.6.2",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "jszip": "^3.10.1",
+    "mammoth": "^1.12.0",
+    "pdfjs-dist": "^6.2.108",
+    "turndown": "^7.2.1"
+  }
+}
