@@ -53,7 +53,7 @@ all2md 是全新的 Obsidian 社区插件项目，解决「各种格式文件 �
 ## 待办清单
 
 ### 🔴 高优先级（当前）
-- [ ] **首发版评估 + 社区上架准备**（2026-09-28 阿麦发起）：① 评估 v1.0.0 是否够用作首发版 ✅ 结论：功能够，工程补齐后可发；② 梳理 Obsidian 社区插件上架流程 ✅ 已沉淀至 [[../../tools/Obsidian 社区插件上架流程|tools/Obsidian 社区插件上架流程.md]]（含发版同步提醒与自检表）；③ 按通用自检表补齐差距 ✅ 已完成（2026-09-28，整改前备份 `G:\Q备份\016-all2md-v1.0.0-上架整改前备份-20260928.zip`）：README.md（含发版维护提醒隐藏注释）、LICENSE（MIT）、versions.json、manifest 终检（fundingUrl 空串删除、description 补句号、isDesktopOnly 改 true 桌面端优先）、两处 console.log 降 console.warn、设置面板 h2/h3 改 setHeading、重新构建并自动部署；④ **剩余唯一前置：GitHub 公开仓库（等阿麦创建后推代码 + 打 tag 发 release + community.obsidian.md 提交）**
+- [ ] **首发版评估 + 社区上架准备**（2026-09-28 阿麦发起）：① 评估 v1.0.0 是否够用作首发版 ✅ 结论：功能够，工程补齐后可发；② 梳理 Obsidian 社区插件上架流程 ✅ 已沉淀至 [[../../tools/Obsidian 社区插件上架流程|tools/Obsidian 社区插件上架流程.md]]（含发版同步提醒与自检表）；③ 按通用自检表补齐差距 ✅ 已完成（2026-09-28，整改前备份 `G:\Q备份\016-all2md-v1.0.0-上架整改前备份-20260928.zip`）：README.md（含发版维护提醒隐藏注释）、LICENSE（MIT）、versions.json、manifest 终检（fundingUrl 空串删除、description 补句号、isDesktopOnly 改 true 桌面端优先）、两处 console.log 降 console.warn、设置面板 h2/h3 改 setHeading、重新构建并自动部署；④ GitHub 公开仓库 ✅ 已建成（xmmw-fun/obsidian-all2md），v1.0.0 Release ✅ 已发布（tag=1.0.0，三件套齐全）；⑤ **剩余最后一步：community.obsidian.md 提交（需阿麦浏览器操作：登录 Obsidian 账号→绑定 GitHub→Add plugin→填 id/name/author/description/repo→Publish）**
 
 ### 🟡 中优先级（M2 扩展）
 - [ ] **M2 扩展规划**（xlsx/html/csv 等格式，明确范围后立项）
@@ -99,8 +99,9 @@ all2md 是全新的 Obsidian 社区插件项目，解决「各种格式文件 �
 | 2026-08-13 | AI | 四 bug 修复（DOCX buffer/PPTX 图片路径/PDF worker/设置拆分）；部署待实测 |
 | 2026-08-17 | AI | 卡片状态滚动更新（M1 完成待实测）；全局待办 W34 同步 |
 | 2026-08-24 | AI | 三格式实测全部通过（阿麦实测）；v1.0.0 可用版双保险保存（git `089713a` + `G:\Q备份` zip）；T12 附件命名调整（附件名=MD基名_image_N）并实测通过；插件安装至 work 库（vault998-outup-work）；全局看板同步 |
+| 2026-09-28 | AI（阿麦发起） | 首发版评估 + 上架整改完成（README 发版提醒 / LICENSE(MIT) / versions.json / manifest 终检 / console.log 降 warn / setHeading，整改前备份 `G:\Q备份\016-all2md-v1.0.0-上架整改前备份-20260928.zip`）；GitHub 公开仓库 xmmw-fun/obsidian-all2md 建成，v1.0.0 Release 发布（tag=1.0.0）；上架流程沉淀至 `tools/Obsidian 社区插件上架流程.md`；剩 community.obsidian.md 提交（需阿麦浏览器操作）；总看板 016 行回写 |
 | 2026-09-28 | AI | 状态滚动：M1 实测闭环，进入「首发版评估 + 社区上架」阶段（阿麦发起）；修正 minAppVersion 为 1.1.0（与 manifest.json 一致）；全局待办 016 待实测条目对账归档；研发项目看板同步刷新 |
-| 2026-09-28 | AI | 上架差距整改（阿麦口头批准，整改前备份 `G:\Q备份\016-all2md-v1.0.0-上架整改前备份-20260928.zip`）：新增 README.md（含发版维护提醒隐藏注释）/ LICENSE（MIT）/ versions.json；manifest 终检（删 fundingUrl 空串、description 补句号、isDesktopOnly 改 true）；两处 console.log 降 console.warn；设置面板 h2/h3 改 setHeading；重新构建 5.1MB 并自动部署至 `.obsidian/plugins/all2md/`；流程文件补「发版必改提醒」。同日署名改为 **XMMW**（阿麦拍板：以后所有插件/软件署名统一 XMMW，已写 project_memory 署名约定）。剩余唯一前置：GitHub 公开仓库（等阿麦创建） |
+| 2026-09-28 | AI | 上架差距整改（阿麦口头批准，整改前备份 `G:\Q备份\016-all2md-v1.0.0-上架整改前备份-20260928.zip`）：新增 README.md（含发版维护提醒隐藏注释）/ LICENSE（MIT）/ versions.json；manifest 终检（删 fundingUrl 空串、description 补句号、isDesktopOnly 改 true）；两处 console.log 降 console.warn；设置面板 h2/h3 改 setHeading；重新构建 5.1MB 并自动部署至 `.obsidian/plugins/all2md/`；流程文件补「发版必改提醒」。同日署名改为 **XMMW**（阿麦拍板：以后所有插件/软件署名统一 XMMW，已写 project_memory 署名约定）；**GitHub 公开仓库已建成**（github.com/xmmw-fun/obsidian-all2md，gh CLI 设备授权登录 + .gitignore 排除测试文件/开发垃圾），**v1.0.0 Release 已发布**（tag=1.0.0，三件套 main.js/manifest.json/styles.css 齐全，authorUrl 已填主页）。剩余最后一步：community.obsidian.md 提交（阿麦浏览器操作，流程见 tools 上架文档） |
 
 ---
 

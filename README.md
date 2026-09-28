@@ -19,7 +19,7 @@ All2MD converts Word, PowerPoint and PDF files to Markdown directly inside Obsid
 - **图片提取**：文档中的图片自动提取为附件并插入引用；也可关闭提取换取更快转换（图片位置显示 `[Image]` 占位符）
 - **表格转换**：Word / PPT 中的表格转为标准 Markdown 表格
 - **PDF 分段**：按页组织（`## Page N`），自动段落检测，中文正常
-- **三种入口**：右键文件菜单、命令面板（`Ctrl+P` → Convert file to Markdown）、拖拽文件到编辑器
+- **两种入口**：右键文件菜单、命令面板（`Ctrl+P` → Convert file to Markdown）
 - **输出灵活**：插入当前光标处，或生成新的 `.md` 文件（可自定义目录与命名模板）
 - **附件命名清晰**：附件名与产出的 Markdown 文件名匹配（如 `A.md` → `A_image_1.png`）
 - **纯本地运行**：零外部依赖，不发起任何网络请求，不上传任何数据
@@ -34,10 +34,6 @@ All2MD converts Word, PowerPoint and PDF files to Markdown directly inside Obsid
 ### 方式二：命令面板
 
 `Ctrl+P`（macOS 为 `Cmd+P`）打开命令面板，输入 "Convert file to Markdown"，在弹出的文件选择器中选取文件。
-
-### 方式三：拖拽
-
-将 `.docx` / `.pptx` / `.pdf` 文件直接拖入编辑器，自动触发转换。
 
 ### 输出结果
 

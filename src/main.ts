@@ -58,20 +58,6 @@ export default class All2MDPlugin extends Plugin {
 				});
 			})
 		);
-
-		// 注册拖拽事件（文件拖入编辑器时触发转换）——额外便利入口
-		this.registerEvent(
-			this.app.workspace.on('editor-drop', (_evt, _editor, info) => {
-				const file = (info as any)?.file;
-				if (file instanceof TFile) {
-					const format = detectFormat(file.name);
-					if (format) {
-						_evt.preventDefault();
-						this.convertFile(file);
-					}
-				}
-			})
-		);
 	}
 
 	async onunload(): Promise<void> {
@@ -280,9 +266,18 @@ export default class All2MDPlugin extends Plugin {
 
 	/**
 	 * 模式 A：插入当前编辑器光标处
+	 *
+	 * 2026-09-28 修复：右键文件菜单时焦点在文件列表，getActiveViewOfType 返回 null
+	 * 误判"未打开笔记"。现增加回退：活动视图不是 MarkdownView 时，
+	 * 取任意一个已打开的 Markdown 视图（通常最后一个 = 最近使用的）。
 	 */
 	private async insertAtCursor(mdContent: string): Promise<void> {
-		const view = this.app.workspace.getActiveViewOfType(MarkdownView);
+		let view = this.app.workspace.getActiveViewOfType(MarkdownView);
+		if (!view) {
+			const leaves = this.app.workspace.getLeavesOfType('markdown');
+			const leaf = leaves[leaves.length - 1];
+			if (leaf) view = leaf.view as MarkdownView;
+		}
 		if (!view) {
 			// 没有打开的编辑器 → 降级为创建新文件
 			new Notice('请先打开一个笔记文件，或切换输出方式为"生成新文件"', 6000);
