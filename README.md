@@ -13,6 +13,12 @@
 
 AllToMD converts Word, PowerPoint and PDF files to Markdown directly inside Obsidian, with image and table extraction.
 
+## Installation & Usage
+
+**Install** (Obsidian v1.4.0+): Search "AllToMD" in **Settings → Community plugins**. For manual installation, download `main.js`, `manifest.json` and `styles.css` from the [latest release](../../releases/latest) into `YourVault/.obsidian/plugins/alltomd/`, then enable the plugin.
+
+**Usage**: Right-click any `.docx`, `.pptx` or `.pdf` file in the file explorer and choose **转换为 Markdown** (Convert to Markdown). Alternatively, open the command palette (`Ctrl+P`) and run **Convert file to Markdown**.
+
 ## 功能特性
 
 - **三种格式**：`.docx`（Word）、`.pptx`（PowerPoint）、`.pdf`（PDF）

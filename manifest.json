@@ -1,11 +1,10 @@
 {
   "id": "alltomd",
   "name": "AllToMD",
-  "version": "1.0.4",
-  "minAppVersion": "1.1.0",
-  "description": "将各种格式文件（Word/PPT/PDF）一键转换为 Markdown，支持图片和表格提取。",
+  "version": "1.0.5",
+  "minAppVersion": "1.4.0",
+  "description": "将各种格式文件（Word/PPT/PDF）一键转换为 Markdown，支持图片和表格提取。Convert Word, PowerPoint and PDF files to Markdown, with image and table extraction.",
   "author": "XMMW",
   "authorUrl": "https://github.com/xmmw-fun",
-  "isDesktopOnly": true,
-  "files": ["main.js", "styles.css"]
+  "isDesktopOnly": true
 }

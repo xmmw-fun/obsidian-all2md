@@ -8,22 +8,22 @@
  * 4. 转换 → 保存附件 → 输出 Markdown
  */
 
-import { Plugin, Notice, TFile, TFolder, MarkdownView, normalizePath } from 'obsidian';
+import { Plugin, Notice, TFile, MarkdownView, normalizePath, activeDocument } from 'obsidian';
 import { All2MDSettingsTab } from './settings';
 import { detectFormat } from './converters/converter';
 import { DocxConverter } from './converters/docx-converter';
 import { PptxConverter } from './converters/pptx-converter';
 import { PdfConverter } from './converters/pdf-converter';
 import type { All2MDSettings, Converter, ConvertResult, SupportedFormat } from './types';
-import { DEFAULT_SETTINGS, SUPPORTED_EXTENSIONS } from './types';
+import { DEFAULT_SETTINGS } from './types';
 
 export default class All2MDPlugin extends Plugin {
 	settings!: All2MDSettings;
 	private converters: Map<SupportedFormat, Converter> = new Map();
 
-	async onload(): Promise<void> {
-		// 加载设置
-		await this.loadSettings();
+	onload(): void {
+		// 加载设置（不阻塞 onload，注册完入口后由 Promise 自行完成）
+		void this.loadSettings();
 
 		// 注册转换器
 		this.converters.set('docx', new DocxConverter());
@@ -54,7 +54,7 @@ export default class All2MDPlugin extends Plugin {
 					item
 						.setTitle('转换为 Markdown')
 						.setIcon('file-text')
-						.onClick(() => this.convertFile(file));
+						.onClick(() => void this.convertFile(file));
 				});
 			})
 		);
@@ -92,15 +92,15 @@ export default class All2MDPlugin extends Plugin {
 	 * 支持 docx / pptx / pdf
 	 */
 	private pickAndConvert(): void {
-		const input = document.createElement('input');
+		const input = activeDocument.createEl('input');
 		input.type = 'file';
 		input.accept = '.docx,.pptx,.pdf';
 		input.multiple = false;
 
-		input.onchange = async () => {
+		input.onchange = () => {
 			const file = input.files?.[0];
 			if (!file) return;
-			this.convertFromBlob(file);
+			void this.convertFromBlob(file);
 		};
 
 		input.click();
@@ -132,21 +132,21 @@ export default class All2MDPlugin extends Plugin {
 			// 保存附件（图片等）
 			try {
 				await this.saveAttachments(result, savePath);
-			} catch (err: any) {
-				throw new Error(`保存附件失败：${err?.message || err}`);
+			} catch (err) {
+				throw new Error(`保存附件失败：${err instanceof Error ? err.message : String(err)}`);
 			}
 
 			// 按设置输出
 			try {
 				await this.outputMarkdown(result, file);
-			} catch (err: any) {
-				throw new Error(`输出 Markdown 失败：${err?.message || err}`);
+			} catch (err) {
+				throw new Error(`输出 Markdown 失败：${err instanceof Error ? err.message : String(err)}`);
 			}
 			notice.hide();
 			new Notice(`转换完成！格式：${format.toUpperCase()}，耗时 ${result.meta.durationMs}ms`, 5000);
-		} catch (err: any) {
+		} catch (err) {
 			notice.hide();
-			const msg = err?.message || String(err);
+			const msg = err instanceof Error ? err.message : String(err);
 			console.error('[All2MD] 转换失败:', msg);
 			new Notice(`转换失败：${msg}`, 8000);
 		}
@@ -181,9 +181,9 @@ export default class All2MDPlugin extends Plugin {
 			await this.outputMarkdown(result, null);
 			notice.hide();
 			new Notice(`转换完成！格式：${format.toUpperCase()}，耗时 ${result.meta.durationMs}ms`, 5000);
-		} catch (err: any) {
+		} catch (err) {
 			notice.hide();
-			const msg = err?.message || String(err);
+			const msg = err instanceof Error ? err.message : String(err);
 			console.error('[All2MD] 转换失败:', msg);
 			new Notice(`转换失败：${msg}`, 8000);
 		}

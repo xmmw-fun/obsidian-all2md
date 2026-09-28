@@ -11,6 +11,27 @@ if you want to view the source, please visit the github repository of this plugi
 
 const prod = process.argv[2] === "production";
 
+// mammoth 的 package.json browser 字段不会被 esbuild 应用到包内相对路径引用，
+// 导致 Node 版 files.js / unzip.js（含 require("fs")）被打进产物。
+// 这里用插件显式把这两个内部引用重定向到浏览器实现（上架审查整改，2026-09-28）。
+const mammothBrowserPlugin = {
+  name: "mammoth-browser-redirect",
+  setup(build) {
+    build.onResolve({ filter: /^\.\/files$/ }, (args) => {
+      if (args.importer.includes("node_modules" + path.sep + "mammoth")) {
+        return { path: path.resolve("node_modules/mammoth/browser/docx/files.js") };
+      }
+      return null;
+    });
+    build.onResolve({ filter: /^\.\/unzip$/ }, (args) => {
+      if (args.importer.includes("node_modules" + path.sep + "mammoth")) {
+        return { path: path.resolve("node_modules/mammoth/browser/unzip.js") };
+      }
+      return null;
+    });
+  },
+};
+
 // 部署到 vault002 插件目录
 const deploy = () => {
   const targetVault = process.env.ALLTOMD_VAULT || "E:\\Obsidian\\vault002-outup-others";
@@ -55,10 +76,28 @@ const buildOptions = {
   ],
   format: "cjs",
   platform: "node",
+  mainFields: ["browser", "module", "main"],
+  // immediate 包（jszip -> lie -> immediate 依赖链）特性检测里含
+  // document.createElement("script")，社区审查会扫产物里的 script 注入标记。
+  // jszip 的 browser 字段会把入口重定向到预打包的 dist/jszip.min.js，
+  // 里面内联了完整的 immediate 特性检测代码，alias 拦不到，所以连入口一起改指到 lib/。
+  // 本 shim 用 Promise 微任务提供等价的「尽快异步执行」语义（上架审查整改，2026-09-28）。
+  alias: {
+    immediate: path.resolve("src/shims/immediate.js"),
+    setimmediate: path.resolve("src/shims/setimmediate.js"),
+    jszip: path.resolve("node_modules/jszip/lib/index.js"),
+  },
   target: "ES6",
+  // 产物压缩：体积要控制在 5MB 以内（Obsidian Sync Standard 同步上限，社区审查会警告）
+  minify: prod,
+  minifyWhitespace: prod,
+  minifyIdentifiers: prod,
+  minifySyntax: prod,
+  keepNames: true,
   logLevel: "info",
   sourcemap: prod ? false : "inline",
   treeShaking: true,
+  plugins: [mammothBrowserPlugin],
   outfile: "main.js",
 };
 

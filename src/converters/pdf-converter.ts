@@ -13,11 +13,12 @@
  * - 扫描版 PDF 需要 OCR（M3 计划）
  */
 
-// ⚠️ 必须用 legacy build：pdfjs-dist v6 默认入口 build/pdf.mjs 在 import 阶段
-// 就需要浏览器 DOMMatrix API，Node.js/Electron 环境没有 → 一加载就崩。
-// legacy 构建不依赖 DOM API，可在 Node/Electron 中直接运行（2026-08-08 实测验证）
-import * as pdfjsLib from 'pdfjs-dist/legacy/build/pdf.mjs';
-import * as pdfjsWorker from 'pdfjs-dist/legacy/build/pdf.worker.mjs';
+// 2026-09-28 上架审查整改：legacy 构建内含 createElement('script') 动态加载器，
+// 被社区目录自动审查判为「运行时创建 script 元素」Error。现代构建无此代码。
+// 现代构建 import 期依赖 DOMMatrix——旧注释称 Electron 没有，实测 Obsidian 渲染进程
+// （Chromium）支持 DOMMatrix，可正常加载；v1.0.5 起改用现代构建（需阿麦实测 PDF 转换）。
+import * as pdfjsLib from 'pdfjs-dist/build/pdf.mjs';
+import * as pdfjsWorker from 'pdfjs-dist/build/pdf.worker.mjs';
 import type { Converter, SupportedFormat, ConvertResult, ConvertOptions } from '../types';
 import { makeResult } from './converter';
 
@@ -30,9 +31,11 @@ import { makeResult } from './converter';
 // - 官方主线程注入点：pdf.mjs 中 `PDFWorker.#mainThreadWorkerMessageHandler` 直接读
 //   `globalThis.pdfjsWorker?.WorkerMessageHandler`。一旦注册，`#initialize` 与
 //   `_setupFakeWorkerGlobal` 都跳过 new Worker / import(workerSrc)，改在主线程解析。
-// - 因此这里把 pdf.worker.mjs 打包进 main.js 并注册到 globalThis，不再依赖任何
-//   worker 文件，也无需配置 workerSrc（pdf.worker.mjs 部署步骤已从 esbuild 移除）。
-(globalThis as any).pdfjsWorker = { WorkerMessageHandler: (pdfjsWorker as any).WorkerMessageHandler };
+// - 因此这里把 pdf.worker.mjs 打包进 main.js 并注册到 window（渲染进程中
+//   window === globalThis），不再依赖任何 worker 文件，也无需配置 workerSrc。
+(window as unknown as { pdfjsWorker: unknown }).pdfjsWorker = {
+	WorkerMessageHandler: (pdfjsWorker as unknown as { WorkerMessageHandler: unknown }).WorkerMessageHandler,
+};
 
 export class PdfConverter implements Converter {
 	readonly name = 'PDF Converter';
@@ -41,10 +44,10 @@ export class PdfConverter implements Converter {
 	async convert(fileData: ArrayBuffer, fileName: string, options: ConvertOptions): Promise<ConvertResult> {
 		const startTime = Date.now();
 
-		// 加载 PDF（pdf.js v6 不支持 disableWorker，worker 通过 workerSrc 指向本地文件）
+		// 加载 PDF（pdf.js v6 不支持 disableWorker，worker 通过主线程注入的 WorkerMessageHandler 解析）
 		const loadingTask = pdfjsLib.getDocument({
 			data: new Uint8Array(fileData),
-		} as any);
+		});
 		const pdf = await loadingTask.promise;
 
 		const pageCount = pdf.numPages;
@@ -98,7 +101,7 @@ export class PdfConverter implements Converter {
  * 2. 行内按 X 坐标排序，拼接同行文字
  * 3. 根据行间距判断是否换段（间距 > 平均行高的 2.2 倍 → 新段落）
  */
-function buildParagraphs(textContent: { items: any[] }): string[] {
+function buildParagraphs(textContent: PdfTextContent): string[] {
 	const items = textContent.items;
 	if (!items || items.length === 0) return [];
 
@@ -180,6 +183,17 @@ interface PositionedItem {
 	x: number;
 	y: number;
 	height: number;
+}
+
+/** pdf.js getTextContent 结果中我们关心的最小结构（避免 any） */
+interface PdfTextItem {
+	str?: string;
+	transform?: number[];
+	height?: number;
+}
+
+interface PdfTextContent {
+	items: PdfTextItem[];
 }
 
 /**
