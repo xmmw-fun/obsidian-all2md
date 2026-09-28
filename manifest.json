@@ -1,7 +1,7 @@
 {
   "id": "alltomd",
-  "name": "All2MD",
-  "version": "1.0.3",
+  "name": "AllToMD",
+  "version": "1.0.4",
   "minAppVersion": "1.1.0",
   "description": "将各种格式文件（Word/PPT/PDF）一键转换为 Markdown，支持图片和表格提取。",
   "author": "XMMW",

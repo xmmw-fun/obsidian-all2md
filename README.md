@@ -7,11 +7,11 @@
      详细流程见项目库 tools/Obsidian 社区插件上架流程.md 第三节
      ═══════════════════════════════════════════════════════════ -->
 
-# All2MD
+# AllToMD
 
 将各种格式文件（Word / PPT / PDF）一键转换为 Markdown，支持图片和表格提取。
 
-All2MD converts Word, PowerPoint and PDF files to Markdown directly inside Obsidian, with image and table extraction.
+AllToMD converts Word, PowerPoint and PDF files to Markdown directly inside Obsidian, with image and table extraction.
 
 ## 功能特性
 

@@ -13,7 +13,7 @@ const prod = process.argv[2] === "production";
 
 // 部署到 vault002 插件目录
 const deploy = () => {
-  const targetVault = process.env.ALL2MD_VAULT || "E:\\Obsidian\\vault002-outup-others";
+  const targetVault = process.env.ALLTOMD_VAULT || "E:\\Obsidian\\vault002-outup-others";
   const pluginDir = path.join(targetVault, ".obsidian", "plugins", "alltomd");
   try {
     fs.mkdirSync(pluginDir, { recursive: true });
