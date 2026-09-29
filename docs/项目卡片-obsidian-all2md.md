@@ -10,7 +10,7 @@
 | 项目名称 | all2md |
 | 项目类型 | Obsidian 插件 |
 | 创建日期 | 2026-08-07 |
-| 当前版本 | v1.0.6（修复 v1.0.5 的 Word 转换回归，待阿麦实测后重新 Publish） |
+| 当前版本 | v1.0.6（修复 v1.0.5 的 Word 转换回归；阿麦实测三格式通过、已重新 Publish 2026-09-28 21:55，二审审核中） |
 | 负责人 | 阿麦 |
 | 项目目录 | `scr/016-obsidian-all2md/` |
 | 插件 ID | `alltomd`（v1.0.3 起；原 `all2md` 因官方规范"仅小写字母+连字符"被拒） |
@@ -22,10 +22,10 @@
 
 ## 当前状态
 
-- **状态**：🟢 v1.0.6 阿麦实测三格式通过（2026-09-28 21:55），已重新 Publish，**社区二审审核中**，结果明天后天回填；实测通过版已备份 `G:\Q备份\016-alltomd-v1.0.6-实测通过-备份-20260928.zip`
+- **状态**：🟢 **已上架！** 二审自动审查通过，alltomd 已进入社区插件列表（2026-09-29 凌晨，含"尚未经 Obsidian 人工复核"标准标注——人工复核是后续例行流程，非阻塞）；实测通过版备份 `G:\Q备份\016-alltomd-v1.0.6-实测通过-备份-20260928.zip`
 - **阶段**：M1 完成（docx/pptx/pdf 三格式转换 + 命令面板/右键菜单/设置面板）→ 四 bug 修复（2026-08-13）→ **三格式实测全部通过 + T12 附件命名通过（2026-08-24 阿麦实测）→ v1.0.0 可用版双保险保存（git `089713a` + zip）** → 首发评估与上架（2026-09-28：v1.0.0 提交 → 命名整改 v1.0.3/1.0.4 → 首轮审核未通过 → v1.0.5 审查整改）
-- **最后更新**：2026-09-28
-- **最后更新者**：AI（阿麦发起）
+- **最后更新**：2026-09-29
+- **最后更新者**：Kimi（每日对账簿记补登）
 
 ---
 
@@ -54,7 +54,7 @@ all2md 是全新的 Obsidian 社区插件项目，解决「各种格式文件 �
 ## 待办清单
 
 ### 🔴 高优先级（当前）
-- [ ] **v1.0.5 审查整改后重新 Publish**（2026-09-28 晚 阿麦发起）：首轮审核未通过（2 Error + 一批 Warning），v1.0.5 已整改并发布 GitHub Release ✅（详见更新日志）；**待阿麦：① 重载 Obsidian 实测 docx/pptx/pdf 三格式（重点确认 PDF 转换——pdfjs 换现代构建后未实测）② 回 community.obsidian.md 重新 Publish ③ 新审核结果发 AI 归档**。审查规则已沉淀至 [[../../tools/Obsidian 社区插件上架流程|tools/Obsidian 社区插件上架流程.md]]「审查规则档案」节
+- [ ] **v1.0.5 审查整改后重新 Publish**（2026-09-28 晚 阿麦发起）：首轮审核未通过（2 Error + 一批 Warning），v1.0.5 已整改并发布 GitHub Release ✅（详见更新日志）；① 实测 docx/pptx/pdf 三格式 ✅（2026-09-28 21:55 阿麦实测通过，含 v1.0.6 Word 回归修复）② 回 community.obsidian.md 重新 Publish ✅（09-28 21:55 已提交）；**待阿麦：③ 新审核结果出来后发 AI 归档（二审审核中，预计 09-29~09-30 回填）**。审查规则已沉淀至 [[../../tools/Obsidian 社区插件上架流程|tools/Obsidian 社区插件上架流程.md]]「审查规则档案」节
 - [x] 首发版评估 + 社区上架准备（2026-09-28）：评估 ✅、流程沉淀 ✅、差距整改 ✅、GitHub 仓库与 v1.0.0 Release ✅、community.obsidian.md 提交 ✅（阿麦 20:47 操作，只粘贴仓库 URL 即可，字段自动识别）
 
 ### 🟡 中优先级（M2 扩展）
@@ -104,8 +104,10 @@ all2md 是全新的 Obsidian 社区插件项目，解决「各种格式文件 �
 | 2026-09-28 | AI（阿麦发起） | 首发版评估 + 上架整改完成（README 发版提醒 / LICENSE(MIT) / versions.json / manifest 终检 / console.log 降 warn / setHeading，整改前备份 `G:\Q备份\016-all2md-v1.0.0-上架整改前备份-20260928.zip`）；GitHub 公开仓库 xmmw-fun/obsidian-all2md 建成，v1.0.0 Release 发布（tag=1.0.0）；上架流程沉淀至 `tools/Obsidian 社区插件上架流程.md`；剩 community.obsidian.md 提交（需阿麦浏览器操作）；总看板 016 行回写 |
 | 2026-09-28 | AI | 状态滚动：M1 实测闭环，进入「首发版评估 + 社区上架」阶段（阿麦发起）；修正 minAppVersion 为 1.1.0（与 manifest.json 一致）；全局待办 016 待实测条目对账归档；研发项目看板同步刷新 |
 | 2026-09-28 | AI | 上架差距整改（阿麦口头批准，整改前备份 `G:\Q备份\016-all2md-v1.0.0-上架整改前备份-20260928.zip`）：新增 README.md（含发版维护提醒隐藏注释）/ LICENSE（MIT）/ versions.json；manifest 终检（删 fundingUrl 空串、description 补句号、isDesktopOnly 改 true）；两处 console.log 降 console.warn；设置面板 h2/h3 改 setHeading；重新构建 5.1MB 并自动部署至 `.obsidian/plugins/all2md/`；流程文件补「发版必改提醒」。同日署名改为 **XMMW**（阿麦拍板：以后所有插件/软件署名统一 XMMW，已写 project_memory 署名约定）；**GitHub 公开仓库已建成**（github.com/xmmw-fun/obsidian-all2md，gh CLI 设备授权登录 + .gitignore 排除测试文件/开发垃圾），**v1.0.0 Release 已发布**（tag=1.0.0，三件套 main.js/manifest.json/styles.css 齐全，authorUrl 已填主页）。剩余最后一步：community.obsidian.md 提交（阿麦浏览器操作，流程见 tools 上架文档）。同日 v1.0.1 已发布（阿麦实测反馈：修复插入光标模式右键转换误判"无打开笔记"——右键后焦点在文件列表导致 getActiveViewOfType 返回 null，现回退取任一打开的 Markdown 视图；移除未实测的拖拽入口及 README 对应描述）。v1.0.2 经阿麦实测**修复确认**（20:18；病因：v1.0.1 兜底逻辑取"最后一个打开的笔记"，若该笔记处于阅读模式则插入抛错；v1.0.2 改为逐个挑选 editor 存在的笔记，实时预览/源码/阅读模式组合均覆盖）。v1.0.3（20:40）：社区目录提交时 manifest ID `all2md` 被拒——官方规范 ID 只能含小写字母和连字符（不允许数字），改 `alltomd` 后重新发布，部署目录同步改名（设置数据保留）。v1.0.4（20:50）：三个名字统一——显示名 `All2MD`→`AllToMD`、仓库 `obsidian-all2md`→`obsidian-alltomd`（gh repo rename，旧地址自动跳转）；起名规范沉淀至上架流程文档第〇节，以后立项起名即规避 |
-| 2026-09-28 | AI | v1.0.6（21:44）：修复 v1.0.5 引入的 Word 转换回归（阿麦实测：两种方式都失败，PDF/PPTX 正常）。病因：为消 `require("fs")` 把 mammoth 内部 `./unzip` 重定向到浏览器版实现，但浏览器版 openZip 只认 `{ arrayBuffer }`、源码仍传 `{ buffer }` → "Could not find file in options"。修复：docx-converter 改传 `{ arrayBuffer: fileData }`，先用 poc 脚本对真实 docx（《讨债鬼》正文.docx，含 4 张图片）离线验证转换+图片提取通过后，才构建发版。**教训：重定向依赖实现后必须端到端实测再发版**。源码备份 `G:\Q备份\016-alltomd-v1.0.6-审查整改后备份-20260928.zip`；git 历史分叉已理清（force-with-lease 安全强推，本地远端一致） |
+| 2026-09-28 | AI | v1.0.6（21:44）：修复 v1.0.5 引入的 Word 转换回归（阿麦实测：两种方式都失败，PDF/PPTX 正常）。病因：为消 `require("fs")` 把 mammoth 内部 `./unzip` 重定向到浏览器版实现，但浏览器版 openZip 只认 `{ arrayBuffer }`、源码仍传 `{ buffer }` → "Could not find file in options"。修复：docx-converter 改传 `{ arrayBuffer: fileData }`，先用 poc 脚本对真实 docx（《讨债鬼》正文.docx，含 4 张图片）离线验证转换+图片提取通过后，才构建发版。**教训：重定向依赖实现后必须端到端实测再发版**。源码备份 `G:\Q备份\016-alltomd-v1.0.6-审查整改后备份-20260928.zip`；git 历史分叉已理清（force-with-lease 安全强推，本地远端一致）。21:55 阿麦实测三格式通过 → 重新 Publish → **09-29 凌晨自动审查通过，插件正式进入社区列表**（community-plugins.json 已含 alltomd，带"尚未经人工复核"标准标注） |
+| 2026-09-29 | AI | 状态回写：已上架。审核状态自查通道验证可行——社区列表 mirror 仓库 `obsidianmd/obsidian-releases` 的 community-plugins.json 可直接用 gh/curl 查询，**以后问审核状态不用阿麦复制页面，AI 自查即可**。整个上架周期（09-28 20:47 首次提交 → 09-29 凌晨通过）耗时约半天：首轮自动审查未通过 → v1.0.5/1.0.6 整改 → 重新 Publish → 通过 |
 | 2026-09-28 | AI | v1.0.5（21:10）：按社区首轮审核报告完成整改并发布 Release（tag=1.0.5）。**Error 级修复**：① `minAppVersion` 1.1.0→1.4.0（代码用到 vault.createFolder，低于实际 API 版本被驳回）；② 产物中 `createElement("script")` 清零——pdfjs 从 legacy 构建换现代构建（legacy 的 DynamicLoader 含 script 注入）+ esbuild alias 把 `immediate`/`setimmediate`（jszip 依赖链，特性检测含 script 元素）替换为 src/shims/ 下的 Promise 微任务实现 + jszip 入口从 dist 预打包改指 lib/（dist 内联了完整特性检测）。**Warning 级修复**：manifest 删 unknown `files` 字段、description 改双语且以 ASCII 句号结尾；README 补英文 Installation & Usage 段；esbuild `mainFields:["browser",...]` + 插件重定向 mammoth 内部 `./files` `./unzip` 到 browser 版，产物 `require("fs")` 清零；globalThis 改 window；文件选择器改 activeDocument.createEl；Promise 不 await 的加 void；onload 改非 async；catch 全部去 any 化；删未用导入 TFolder/SUPPORTED_EXTENSIONS；package.json 删 builtin-modules、加 overrides 修 @xmldom/xmldom 漏洞（0.8.15）；产物开启 minify，main.js 5.1MB→2.6MB（<5MB Sync 上限）。**未修（Recommendation 级，不阻塞）**：bluebird/underscore 的 new Function（动态执行建议）、settings.ts getSettingDefinitions 新 API 建议、artifact attestations。审查规则全部沉淀至上架流程文档「审查规则档案」节 |
+| 2026-09-29 | Kimi（每日对账） | 簿记补登：🔴 待办①②回填完成（09-28 21:55 实测通过+已重新 Publish）、当前版本括注同步现状；卡片 mtime 快照校正（实际 09-28 21:56） |
 
 ---
 
